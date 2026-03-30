@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<WarningsAsErrors>Nullable</WarningsAsErrors>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<AppDesignerFolder>properties</AppDesignerFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.10.0" />
+    <PackageReference Include="Confluent.SchemaRegistry" Version="2.10.0" />
+    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.10.0" />
+    <PackageReference Include="LabsAutoMapper" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
+	<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.4" />
+	<PackageReference Include="Polly" Version="8.6.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerManagementApi.Application\CustomerManagementApi.Application.csproj" />
+    <ProjectReference Include="..\CustomerManagementApi.Domain\CustomerManagementApi.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Kafka\AvroClasses\" />
+    <Folder Include="Kafka\Schemas\" />
+  </ItemGroup>
+
+</Project>

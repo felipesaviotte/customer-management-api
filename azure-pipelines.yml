@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - '*'
+    exclude:
+      - 'master'
+
+variables:
+  # pipeline variables
+  - name: CadeiaValor
+    value: 
+  - name: Area
+    value: 
+  - name: Dominio
+    value: 
+  - name: Produto
+    value: 
+  - name: AppLanguage
+    value: netcore
+  - name: AppVersion
+    value: 1.0.0
+  - name: ChartName
+    value: 
+  - name: ChartVersion
+    value: 
+  - name: Secrets
+    value: 
+  - name: PlataformaMonitoramento
+    value: 
+  - name: Lab
+    value: backend

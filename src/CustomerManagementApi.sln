@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.Api", "CustomerManagementApi.Api\CustomerManagementApi.Api.csproj", "{E7CF8787-81A9-4E40-9846-3E368E012A69}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FD40C53-2EE2-4952-BF56-3828F0723321} = {9FD40C53-2EE2-4952-BF56-3828F0723321}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC6980E8-77D2-43F6-A6D3-C3411C06F8E7}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		..\Dockerfile = ..\Dockerfile
+		..\README.md = ..\README.md
+		..\Config\values-dev.yml = ..\Config\values-dev.yml
+		..\Config\values-prd.yml = ..\Config\values-prd.yml
+		..\Config\values-tst.yml = ..\Config\values-tst.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.Tests", "CustomerManagementApi.Tests\CustomerManagementApi.Tests.csproj", "{C866AFAA-4DAF-41CF-889F-1B80C7BAA29B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7CF8787-81A9-4E40-9846-3E368E012A69} = {E7CF8787-81A9-4E40-9846-3E368E012A69}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.Application", "CustomerManagementApi.Application\CustomerManagementApi.Application.csproj", "{83807528-BDD8-4DF5-BE02-A89148DE1C8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.Domain", "CustomerManagementApi.Domain\CustomerManagementApi.Domain.csproj", "{AD76E013-DA05-4414-8EFB-A24399FBDEB2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.Infrastructure", "CustomerManagementApi.Infrastructure\CustomerManagementApi.Infrastructure.csproj", "{15E77609-DF2A-4BA8-A037-9FD43FA4D672}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagementApi.CrossCutting", "CustomerManagementApi.CrossCutting\CustomerManagementApi.CrossCutting.csproj", "{9FD40C53-2EE2-4952-BF56-3828F0723321}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15E77609-DF2A-4BA8-A037-9FD43FA4D672} = {15E77609-DF2A-4BA8-A037-9FD43FA4D672}
+		{83807528-BDD8-4DF5-BE02-A89148DE1C8C} = {83807528-BDD8-4DF5-BE02-A89148DE1C8C}
+		{AD76E013-DA05-4414-8EFB-A24399FBDEB2} = {AD76E013-DA05-4414-8EFB-A24399FBDEB2}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7CF8787-81A9-4E40-9846-3E368E012A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CF8787-81A9-4E40-9846-3E368E012A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CF8787-81A9-4E40-9846-3E368E012A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CF8787-81A9-4E40-9846-3E368E012A69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C866AFAA-4DAF-41CF-889F-1B80C7BAA29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C866AFAA-4DAF-41CF-889F-1B80C7BAA29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C866AFAA-4DAF-41CF-889F-1B80C7BAA29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C866AFAA-4DAF-41CF-889F-1B80C7BAA29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83807528-BDD8-4DF5-BE02-A89148DE1C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83807528-BDD8-4DF5-BE02-A89148DE1C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83807528-BDD8-4DF5-BE02-A89148DE1C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83807528-BDD8-4DF5-BE02-A89148DE1C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD76E013-DA05-4414-8EFB-A24399FBDEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD76E013-DA05-4414-8EFB-A24399FBDEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD76E013-DA05-4414-8EFB-A24399FBDEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD76E013-DA05-4414-8EFB-A24399FBDEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E77609-DF2A-4BA8-A037-9FD43FA4D672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E77609-DF2A-4BA8-A037-9FD43FA4D672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E77609-DF2A-4BA8-A037-9FD43FA4D672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E77609-DF2A-4BA8-A037-9FD43FA4D672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD40C53-2EE2-4952-BF56-3828F0723321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD40C53-2EE2-4952-BF56-3828F0723321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD40C53-2EE2-4952-BF56-3828F0723321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD40C53-2EE2-4952-BF56-3828F0723321}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9981268-487B-4434-9E1A-F0A3CFA60F65}
+	EndGlobalSection
+EndGlobal
