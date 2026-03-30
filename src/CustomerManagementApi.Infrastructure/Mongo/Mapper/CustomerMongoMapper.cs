@@ -25,6 +25,7 @@ public static partial class CustomerMongoMapper
             DocumentNumber = request.DocumentNumber.Value,
             Email = request.Email.Value,
             Phone = request.Phone == null ? null : request.Phone.Value,
+            Status = (int)request.Status,
             CreatedDate = request.CreatedDate
         };
     }
@@ -44,6 +45,7 @@ public static partial class CustomerMongoMapper
             DocumentNumber = Domain.ValueObjects.Document.Create(request.DocumentNumber, (DocumentType)request.DocumentType),
             Email = Domain.ValueObjects.Email.Create(request.Email),
             Phone = string.IsNullOrWhiteSpace(request.Phone) ? null : Domain.ValueObjects.Phone.Create(request.Phone),
+            Status = (CustomerStatus)request.Status,
             CreatedDate = request.CreatedDate
         };
     }
@@ -57,7 +59,8 @@ public static partial class CustomerMongoMapper
             DocumentType = (DocumentType)request.DocumentType,
             DocumentNumber = request.DocumentNumber,
             Email = request.Email,
-            Phone = request.Phone
+            Phone = request.Phone,
+            Status = (CustomerStatus)request.Status
         };
     }
 }

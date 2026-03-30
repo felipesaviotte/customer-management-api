@@ -2,6 +2,7 @@
 using CustomerManagementApi.Application.Ports.Outbound;
 using CustomerManagementApi.Application.ResponseModel;
 using CustomerManagementApi.Domain.Entities;
+using CustomerManagementApi.Domain.Enums;
 using CustomerManagementApi.Domain.Repositories;
 using CustomerManagementApi.Infrastructure.Mongo.Document;
 using CustomerManagementApi.Infrastructure.Mongo.Mapper;
@@ -21,12 +22,15 @@ public class CustomerRepository(IContextMongo context) : BaseMongoRepository<Cus
     /// <summary>
     /// Obtém uma lista de clientes paginada.
     /// </summary>
-    public async Task<GenericResponseModel<CustomerResponseModel>> GetCustomers(int page = PaginationDefaults.DefaultPage, int pageSize = PaginationDefaults.DefaultPageSize, string? name = null, CancellationToken cancellationToken = default)
+    public async Task<GenericResponseModel<CustomerResponseModel>> GetCustomers(int page = PaginationDefaults.DefaultPage, int pageSize = PaginationDefaults.DefaultPageSize, string? name = null, CustomerStatus? status = null, CancellationToken cancellationToken = default)
     {
         var filter = Builders<CustomerMongoDocument>.Filter.Empty;
 
         if (!string.IsNullOrWhiteSpace(name))
-            filter = Builders<CustomerMongoDocument>.Filter.Regex(f => f.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
+            filter &= Builders<CustomerMongoDocument>.Filter.Regex(f => f.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
+
+        if (status.HasValue)
+            filter &= Builders<CustomerMongoDocument>.Filter.Eq(f => f.Status, (int)status.Value);
 
         if (pageSize > PaginationDefaults.MaxPageSize)
             pageSize = PaginationDefaults.MaxPageSize;
@@ -91,7 +95,8 @@ public class CustomerRepository(IContextMongo context) : BaseMongoRepository<Cus
             .Set(f => f.DocumentType, (int)customer.DocumentType)
             .Set(f => f.DocumentNumber, customer.DocumentNumber.Value)
             .Set(f => f.Email, customer.Email.Value)
-            .Set(f => f.Phone, customer.Phone?.Value);
+            .Set(f => f.Phone, customer.Phone?.Value)
+            .Set(f => f.Status, (int)customer.Status);
 
         await Update(filter, update, cancellationToken);
     }
@@ -99,8 +104,22 @@ public class CustomerRepository(IContextMongo context) : BaseMongoRepository<Cus
     /// <summary>
     /// Obtém a contagem total de clientes
     /// </summary>
-    public async Task<long> Count(CancellationToken cancellationToken = default)
+    public async Task<long> Count(CustomerStatus? status = null, CancellationToken cancellationToken = default)
     {
-        return await DbSet.CountDocumentsAsync(Builders<CustomerMongoDocument>.Filter.Empty, cancellationToken: cancellationToken);
+        var filter = Builders<CustomerMongoDocument>.Filter.Empty;
+
+        if (status.HasValue)
+            filter &= Builders<CustomerMongoDocument>.Filter.Eq(f => f.Status, (int)status.Value);
+
+        return await DbSet.CountDocumentsAsync(filter, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Remove um cliente do banco de dados pelo seu identificador.
+    /// </summary>
+    public async Task Delete(string id, CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<CustomerMongoDocument>.Filter.Eq(field => field.Id, id);
+        await DbSet.DeleteOneAsync(filter, cancellationToken);
     }
 }

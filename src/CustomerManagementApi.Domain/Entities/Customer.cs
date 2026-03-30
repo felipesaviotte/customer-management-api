@@ -46,6 +46,11 @@ public class Customer
     //public required Address Address { get; set; }
 
     /// <summary>
+    /// Situação do cliente.
+    /// </summary>
+    public CustomerStatus Status { get; set; }
+
+    /// <summary>
     /// Data e hora de criação.
     /// </summary>
     public required DateTime CreatedDate { get; init; }

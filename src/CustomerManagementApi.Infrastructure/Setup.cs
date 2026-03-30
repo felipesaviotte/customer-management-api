@@ -5,6 +5,7 @@ using CustomerManagementApi.Infrastructure.Db.Repositories;
 using CustomerManagementApi.Infrastructure.ExternalServices;
 using CustomerManagementApi.Infrastructure.Kafka;
 using CustomerManagementApi.Infrastructure.Mongo.Config;
+using CustomerManagementApi.Infrastructure.Mongo.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
@@ -22,14 +23,22 @@ public static class Setup
     /// </summary>
     public static void AddInfrastructure(this IServiceCollection services)
     {
-        services.AddMongo();
+        if (CommonsConstants.UseInMemoryDb)
+        {
+            services.AddSingleton<ICustomerQueryRepository, InMemoryCustomerRepository>();
+            services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+        }
+        else
+        {
+            services.AddMongo();
+            services.AddScoped<ICustomerQueryRepository, CustomerRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+        }
 
         services.ConfigureKafkaProducer();
 
         services.AddHttpClient(nameof(ReceitaFederalService), config => config.BaseAddress = new Uri(CommonsConstants.ReceitaFederal.BaseUrl));
 
-        services.AddScoped<ICustomerQueryRepository, CustomerRepository>();
-        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IReceitaFederalService, ReceitaFederalService>();
     }
 }

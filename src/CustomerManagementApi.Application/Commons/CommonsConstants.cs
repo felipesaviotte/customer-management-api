@@ -6,6 +6,21 @@
     public static class CommonsConstants
     {
         /// <summary>
+        /// Indica se a aplicação deve usar um banco de dados em memória, verificando a variável de ambiente "USE_INMEMORY_DB". Se a variável estiver definida como "true" (ignorando maiúsculas/minúsculas), a aplicação usará um banco de dados em memória, caso contrário, usará o MongoDB. Isso é útil para facilitar testes e desenvolvimento local sem a necessidade de configurar um banco de dados real.
+        /// </summary>
+        public static bool UseInMemoryDb
+        {
+            get
+            {
+                var dbMemory = Environment.GetEnvironmentVariable("USE_INMEMORY_DB");
+                if (dbMemory == null)
+                    return false;
+
+                return bool.TryParse(dbMemory, out var result) && result;
+            }
+        }
+
+        /// <summary>
         /// Classe que contém os valores padrão para paginação.
         /// </summary>
         public static class PaginationDefaults

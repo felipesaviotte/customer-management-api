@@ -36,5 +36,10 @@ namespace CustomerManagementApi.Application.ResponseModel
         /// Número de telefone do cliente.
         /// </summary>
         public string? Phone { get; set; }
+
+        /// <summary>
+        /// Situação do cliente (INDEFINIDO = 0, ATIVO = 1, INATIVO = 2, BLOQUEADO = 3).
+        /// </summary>
+        public required CustomerStatus Status { get; set; }
     }
 }

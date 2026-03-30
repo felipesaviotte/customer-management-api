@@ -7,6 +7,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "LOG_LEVEL": "Debug",
+        "USE_INMEMORY_DB": "true",
 
         "MONGODB_HOST": "localhost:27017",
         "MONGODB_USER": "admin",
@@ -31,6 +32,27 @@
   "Docker": {
     "commandName": "Docker",
     "launchBrowser": true,
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development",
+      "LOG_LEVEL": "Debug",
+      "USE_INMEMORY_DB": "true",
+
+      "MONGODB_HOST": "localhost:27017",
+      "MONGODB_USER": "admin",
+      "MONGODB_PASSWORD": "Passw0rd",
+
+      "BASE_URL_API_RECEITAFEDERAL": "https://ExemploTeste",
+      "API_KEY_API_RECEITAFEDERAL": "teste",
+
+      "BOOTSTRAP_SERVERS": "teste",
+      "KAFKA_USE_SASL_SSL": "true",
+      "SASL_USERNAME": "teste",
+      "SASL_PASSWORD": "teste+keyr4NihTx8MyiR3Qk8ArQnWox8",
+      "KAFKA_CONFLUENT_SCHEMA_URL": "teste",
+      "KAFKA_CONFLUENT_SCHEMA_KEY": "teste",
+      "KAFKA_CONFLUENT_SCHEMA_SECRET": "teste"
+
+    },
     "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
     "publishAllPorts": true,
     "useSSL": true

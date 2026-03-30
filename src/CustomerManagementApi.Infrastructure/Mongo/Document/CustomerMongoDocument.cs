@@ -45,6 +45,11 @@ namespace CustomerManagementApi.Infrastructure.Mongo.Document
         //public required Address Address { get; set; }
 
         /// <summary>
+        /// Situação do cliente.
+        /// </summary>
+        public required int Status { get; set; }
+
+        /// <summary>
         /// Data e hora de criação.
         /// </summary>
         public required DateTime CreatedDate { get; init; }

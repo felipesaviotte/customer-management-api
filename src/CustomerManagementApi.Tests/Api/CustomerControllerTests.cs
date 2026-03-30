@@ -16,13 +16,15 @@ public class CustomerControllerTests
 {
     private readonly Mock<ICustomerQueryService> _customerQueryServiceMock;
     private readonly Mock<ISaveCustomerUseCase> _saveCustomerUseCaseMock;
+    private readonly Mock<IDeleteCustomerUseCase> _deleteCustomerUseCaseMock;
     private readonly CustomerController _controller;
 
     public CustomerControllerTests()
     {
         _customerQueryServiceMock = new Mock<ICustomerQueryService>();
         _saveCustomerUseCaseMock = new Mock<ISaveCustomerUseCase>();
-        _controller = new CustomerController(_customerQueryServiceMock.Object, _saveCustomerUseCaseMock.Object);
+        _deleteCustomerUseCaseMock = new Mock<IDeleteCustomerUseCase>();
+        _controller = new CustomerController(_customerQueryServiceMock.Object, _saveCustomerUseCaseMock.Object, _deleteCustomerUseCaseMock.Object);
     }
 
     #region GetCustomers
@@ -32,7 +34,7 @@ public class CustomerControllerTests
     {
         var expected = new GenericResponseModel<CustomerResponseModel>(1, 10, []);
         _customerQueryServiceMock
-            .Setup(s => s.GetCustomers(1, 10, null, It.IsAny<CancellationToken>()))
+            .Setup(s => s.GetCustomers(1, 10, null, null, It.IsAny<CancellationToken>()))
             .ReturnsAsync(expected);
 
         var result = await _controller.GetCustomers(1, 10);
@@ -46,14 +48,14 @@ public class CustomerControllerTests
     {
         var expected = new GenericResponseModel<CustomerResponseModel>(1, 10, []);
         _customerQueryServiceMock
-            .Setup(s => s.GetCustomers(1, 10, "João", It.IsAny<CancellationToken>()))
+            .Setup(s => s.GetCustomers(1, 10, "João", null, It.IsAny<CancellationToken>()))
             .ReturnsAsync(expected);
 
         var result = await _controller.GetCustomers(1, 10, "João");
 
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(expected, okResult.Value);
-        _customerQueryServiceMock.Verify(s => s.GetCustomers(1, 10, "João", It.IsAny<CancellationToken>()), Times.Once);
+        _customerQueryServiceMock.Verify(s => s.GetCustomers(1, 10, "João", null, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     #endregion
@@ -92,7 +94,7 @@ public class CustomerControllerTests
     public async Task GetCustomersCount_ShouldReturnOk_WithCount()
     {
         _customerQueryServiceMock
-            .Setup(s => s.Count(It.IsAny<CancellationToken>()))
+            .Setup(s => s.Count(null, It.IsAny<CancellationToken>()))
             .ReturnsAsync(42L);
 
         var result = await _controller.GetCustomersCount();
@@ -174,7 +176,8 @@ public class CustomerControllerTests
         DocumentType = DocumentType.CPF,
         DocumentNumber = "12345678901",
         Email = "joao@email.com",
-        Phone = "11999999999"
+        Phone = "11999999999",
+        Status = CustomerStatus.ATIVO
     };
 
     #endregion

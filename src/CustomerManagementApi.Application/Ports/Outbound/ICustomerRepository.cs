@@ -21,5 +21,10 @@ namespace CustomerManagementApi.Application.Ports.Outbound
         /// Atualiza um cliente no banco de dados
         /// </summary>
         public Task Update(Customer customer, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Remove um cliente do banco de dados pelo seu identificador.
+        /// </summary>
+        public Task Delete(string id, CancellationToken cancellationToken = default);
     }
 }

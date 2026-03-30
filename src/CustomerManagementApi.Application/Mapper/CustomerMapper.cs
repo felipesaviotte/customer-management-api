@@ -26,6 +26,7 @@ public static partial class CustomerMapper
             DocumentNumber = Document.Create(request.DocumentNumber, request.DocumentType),
             Email = Email.Create(request.Email),
             Phone = string.IsNullOrWhiteSpace(request.Phone) ? null : Phone.Create(request.Phone),
+            Status = request.Status,
             CreatedDate = DateTime.UtcNow
         };
     }
@@ -44,7 +45,8 @@ public static partial class CustomerMapper
             DocumentType = entity.DocumentType,
             DocumentNumber = entity.DocumentNumber.Value,
             Email = entity.Email.Value,
-            Phone = entity.Phone?.Value
+            Phone = entity.Phone?.Value,
+            Status = entity.Status
         };
     }
 }

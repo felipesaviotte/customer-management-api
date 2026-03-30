@@ -1,5 +1,6 @@
 ﻿using CustomerManagementApi.Application.Ports.Inbound;
 using CustomerManagementApi.Application.Queries;
+using CustomerManagementApi.Application.UseCases;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,7 +18,8 @@ public static class Setup
     public static IServiceCollection AddApplications(this IServiceCollection services)
     {
         services.AddScoped<ICustomerQueryService, CustomerQueryService>();
-        services.AddScoped<ISaveCustomerUseCase, UseCases.SaveCustomerUseCase>();       
+        services.AddScoped<ISaveCustomerUseCase, SaveCustomerUseCase>();
+        services.AddScoped<IDeleteCustomerUseCase, DeleteCustomerUseCase>();
 
         return services;
     }

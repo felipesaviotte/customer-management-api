@@ -200,6 +200,7 @@ Implementa as portas outbound definidas na Application. Contém integrações co
 | **Mongo/Repositories/** | Implementações dos repositórios que acessam o MongoDB. |
 | `BaseMongoRepository.cs` | Repositório genérico com operações CRUD: `List()`, `Get()`, `Insert()`, `Update()`. Usa `FilterDefinition` e `UpdateDefinition` do driver MongoDB. |
 | `CustomerRepository.cs` | Implementa `ICustomerRepository` e `ICustomerQueryRepository`. Operações: listagem paginada com filtro por nome (regex case-insensitive), busca por ID, inserção, atualização parcial e contagem. |
+| `InMemoryCustomerRepository.cs` | Implementação in-memory ativada por `USE_INMEMORY_DB=true`. Substitui o MongoDB por um `ConcurrentDictionary` estático. Suporta todos os filtros, paginação e operações CRUD sem nenhuma dependência de banco de dados. |
 | **Kafka/** | Integração com Apache Kafka via Confluent. (Ainda não ativa.) |
 | `KafkaSetup.cs` | Configura o produtor Kafka com suporte a SASL/SSL e Schema Registry. |
 | `KafkaProducer.cs` | Produtor genérico que serializa mensagens com Avro e publica em tópicos Kafka. |
@@ -388,16 +389,36 @@ As variáveis são configuradas em `src/CustomerManagementApi.Api/properties/lau
 
 #### Aplicação
 
-| Variável                 | Descrição              | Valor padrão (launchSettings) |
-|--------------------------|------------------------|-------------------------------|
-| `ASPNETCORE_ENVIRONMENT` | Ambiente da aplicação  | `Development`                 |
-| `LOG_LEVEL`              | Nível de log           | `Debug`                       |
+| Variável                 | Descrição                                    | Valor padrão (launchSettings) |
+|--------------------------|----------------------------------------------|-------------------------------|
+| `ASPNETCORE_ENVIRONMENT` | Ambiente da aplicação                        | `Development`                 |
+| `LOG_LEVEL`              | Nível de log                                 | `Debug`                       |
+| `USE_INMEMORY_DB`        | Usa banco in-memory em vez do MongoDB real   | `true`                        |
+
+> **`USE_INMEMORY_DB=true`** ativa um repositório em memória (`InMemoryCustomerRepository`) que substitui todas as operações do MongoDB por um `ConcurrentDictionary` estático. Com isso é possível rodar a API localmente **sem Docker e sem MongoDB instalado**. Os dados persistem enquanto a aplicação estiver em execução e são perdidos ao reiniciá-la.
 
 ### Passo a passo para executar
 
-#### 1. Subir o MongoDB via Docker
+#### Opção A — Sem Docker (banco in-memory) ✅ Recomendado para desenvolvimento local
 
-> **Nota:** O Kafka ainda não está ativo neste projeto. Apenas o MongoDB é necessário.
+Não requer MongoDB nem Docker. Os dados ficam em memória enquanto a aplicação estiver rodando.
+
+1. Certifique-se de que `USE_INMEMORY_DB` está como `true` no `launchSettings.json` (já é o padrão).
+2. Build e execução:
+
+```bash
+cd src
+dotnet build CustomerManagementApi.sln
+dotnet run --project CustomerManagementApi.Api --launch-profile "CustomerManagementApi.Api"
+```
+
+> Com essa opção, a conexão com o MongoDB **não é estabelecida** e nenhuma instância de banco de dados é necessária.
+
+---
+
+#### Opção B — Com MongoDB via Docker
+
+Necessário quando `USE_INMEMORY_DB` está como `false` ou ausente.
 
 O `docker-compose.yaml` usa variáveis de ambiente para as credenciais do MongoDB. Antes de subir, defina-as:
 
@@ -417,14 +438,14 @@ MONGO_INITDB_ROOT_USERNAME=admin MONGO_INITDB_ROOT_PASSWORD=Passw0rd docker comp
 
 > As credenciais acima devem coincidir com `MONGODB_USER` e `MONGODB_PASSWORD` do `launchSettings.json`.
 
-#### 2. Build do projeto
+#### 3. Build do projeto
 
 ```bash
 cd src
 dotnet build CustomerManagementApi.sln
 ```
 
-#### 3. Executar a aplicação
+#### 4. Executar a aplicação
 
 **Via CLI:**
 ```bash

@@ -1,4 +1,5 @@
 ﻿using CustomerManagementApi.Application.ResponseModel;
+using CustomerManagementApi.Domain.Enums;
 using static CustomerManagementApi.Application.Commons.CommonsConstants;
 
 namespace CustomerManagementApi.Application.Ports.Inbound;
@@ -15,9 +16,10 @@ public interface ICustomerQueryService
     /// <param name="page">Número da página a ser retornada (padrão é PaginationDefaults.DefaultPage).</param>
     /// <param name="pageSize">Número de clientes por página (padrão é PaginationDefaults.DefaultPageSize).</param>
     /// <param name="name">Nome do cliente</param>
+    /// <param name="situacao">Situação do cliente</param>
     /// <param name="cancellationToken">Token de cancelamento para operações assíncronas.</param>
     /// <returns>Um objeto GenericResponseModel contendo a lista de clientes e informações adicionais.</returns>
-    public Task<GenericResponseModel<CustomerResponseModel>> GetCustomers(int page = PaginationDefaults.DefaultPage, int pageSize = PaginationDefaults.DefaultPageSize, string? name = null, CancellationToken cancellationToken = default);
+    public Task<GenericResponseModel<CustomerResponseModel>> GetCustomers(int page = PaginationDefaults.DefaultPage, int pageSize = PaginationDefaults.DefaultPageSize, string? name = null, CustomerStatus? status = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém um cliente pelo seu ID.
@@ -30,7 +32,8 @@ public interface ICustomerQueryService
     /// <summary>
     /// Obtém a contagem total de clientes.
     /// </summary>
+    /// <param name="situacao">Situação do cliente</param>
     /// <param name="cancellationToken">Token de cancelamento para operações assíncronas.</param>
     /// <returns>Número total de clientes.</returns>
-    public Task<long> Count(CancellationToken cancellationToken = default);
+    public Task<long> Count(CustomerStatus? status = null, CancellationToken cancellationToken = default);
 }
