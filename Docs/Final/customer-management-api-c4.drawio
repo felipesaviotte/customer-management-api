@@ -1,0 +1,265 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6" pages="3">
+  <diagram id="c4-context" name="C4 - Context">
+    <mxGraphModel dx="1783" dy="1051" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ctx-title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;" value="&lt;b&gt;System Context Diagram&lt;/b&gt;&lt;br&gt;Customer Management API" vertex="1">
+          <mxGeometry height="50" width="480" x="560" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-system" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;" value="&lt;b&gt;Customer Management API&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Sistema de Software]&lt;br&gt;&lt;br&gt;API REST para gerenciamento&lt;br&gt;de clientes (CRUD),&lt;br&gt;validação de documentos&lt;br&gt;(CPF/CNPJ/Passaporte)&lt;br&gt;e consulta de dados" vertex="1">
+          <mxGeometry height="180" width="320" x="640" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-mongo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;MongoDB Atlas&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Sistema Externo - Banco de Dados]&lt;br&gt;&lt;br&gt;Armazena os dados dos clientes&lt;br&gt;(db-customer-{env}.customers)" vertex="1">
+          <mxGeometry height="150" width="300" x="200" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-kafka" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;Apache Kafka (Confluent)&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Sistema Externo - Message Broker]&lt;br&gt;&lt;br&gt;Broker de eventos para publicação&lt;br&gt;de eventos de clientes&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="150" width="300" x="650" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-receita" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;API Receita Federal&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Sistema Externo - API REST]&lt;br&gt;&lt;br&gt;Consulta de dados de CNPJ&lt;br&gt;(razão social, situação cadastral)&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="150" width="300" x="1100" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-arrow1" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="ctx-system" value="Faz chamadas API&lt;br&gt;[HTTPS/JSON]">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="280.0000000000002" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ctx-arrow2" edge="1" parent="1" source="ctx-system" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="ctx-mongo" value="Lê e grava dados&#xa;[MongoDB Driver]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-arrow3" edge="1" parent="1" source="ctx-system" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;dashed=1;" target="ctx-kafka" value="Publica eventos &#xa;[Avro / SASL_SSL]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-arrow4" edge="1" parent="1" source="ctx-system" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="ctx-receita" value="Consulta CNPJ&#xa;[HTTPS + x-api-key]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-legend-title" parent="1" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="70" x="30" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-legend1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;arcSize=10;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="30" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-legend1-text" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;" value="Sistema interno" vertex="1">
+          <mxGeometry height="25" width="110" x="55" y="132" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-legend2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;arcSize=10;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="30" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-legend2-text" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;" value="Sistema externo" vertex="1">
+          <mxGeometry height="25" width="110" x="55" y="162" as="geometry" />
+        </mxCell>
+        <mxCell id="b8xsJT9YofGYrtDQNd13-1" parent="1" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;strokeColor=#4472C4;fillColor=#dce8f7;fontColor=#333333;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;arcSize=20;fontSize=12;" value="&lt;b&gt;Cliente / Usuário&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Pessoa]&lt;br&gt;&lt;br&gt;Consome a API REST" vertex="1">
+          <mxGeometry height="160" width="180" x="710" y="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c4-container" name="C4 - Container">
+    <mxGraphModel dx="2037" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cnt-title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;" value="&lt;b&gt;Container Diagram&lt;/b&gt;&lt;br&gt;Customer Management API" vertex="1">
+          <mxGeometry height="50" width="480" x="620" y="20" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;Cliente / Usuário&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Pessoa]&lt;br&gt;&lt;br&gt;Consome a API REST" id="cnt-person">
+          <mxCell parent="1" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;strokeColor=#4472C4;fillColor=#dce8f7;fontColor=#333333;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;arcSize=20;fontSize=12;" vertex="1">
+            <mxGeometry height="160" width="180" x="760" y="80" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="cnt-boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3333FF;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=14;fontColor=#3333FF;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;Customer Management API&lt;/b&gt; [System Boundary]" vertex="1">
+          <mxGeometry height="370" width="1570" x="120" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;" value="&lt;b&gt;API Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Container: ASP.NET Core 8.0]&lt;br&gt;&lt;br&gt;Expõe endpoints REST&lt;br&gt;(CustomerController v1),&lt;br&gt;Swagger, HealthChecks,&lt;br&gt;ExceptionMiddleware" vertex="1">
+          <mxGeometry height="170" width="260" x="160" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-app" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;" value="&lt;b&gt;Application Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Container: Biblioteca .NET]&lt;br&gt;&lt;br&gt;Use Cases:&lt;br&gt;SaveCustomerUseCase,&lt;br&gt;DeleteCustomerUseCase,&lt;br&gt;CustomerQueryService&lt;br&gt;Ports (Inbound/Outbound)" vertex="1">
+          <mxGeometry height="170" width="280" x="520" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-domain" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;" value="&lt;b&gt;Domain Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Container: Biblioteca .NET]&lt;br&gt;&lt;br&gt;Entidades: Customer, Address&lt;br&gt;Value Objects: Document, Email,&lt;br&gt;Phone, Cpf, Cnpj, Passport&lt;br&gt;Enums: CustomerStatus, DocumentType" vertex="1">
+          <mxGeometry height="170" width="300" x="900" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-infra" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#3333FF;fillColor=#438DD5;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;" value="&lt;b&gt;Infrastructure Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Container: Biblioteca .NET]&lt;br&gt;&lt;br&gt;CustomerRepository (Mongo),&lt;br&gt;KafkaProducer (Avro),&lt;br&gt;ReceitaFederalService (HTTP),&lt;br&gt;InMemoryCustomerRepository" vertex="1">
+          <mxGeometry height="170" width="270" x="1330" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-mongo" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;fontSize=12;" value="&lt;b&gt;MongoDB Atlas&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Banco de Dados NoSQL]&lt;br&gt;&lt;br&gt;db-customer-{env}&lt;br&gt;Collection: customers" vertex="1">
+          <mxGeometry height="160" width="220" x="200" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-kafka" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;Apache Kafka&lt;/b&gt;&lt;br&gt;(Confluent)&lt;br&gt;&lt;br&gt;[Message Broker]&lt;br&gt;&lt;br&gt;Topic: {env}.events.meoo.paymentlinks&lt;br&gt;Schema Registry (Avro)&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="160" width="280" x="620" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-receita" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;API Receita Federal&lt;/b&gt;&lt;br&gt;&lt;br&gt;[API REST Externa]&lt;br&gt;&lt;br&gt;Consulta dados de CNPJ&lt;br&gt;Auth: x-api-key&lt;br&gt;Retry: 3x (Polly)&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="160" width="240" x="1080" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-a1" edge="1" parent="1" source="cnt-person" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="cnt-api" value="Chamadas REST &#xa;[HTTPS/JSON]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-a2" edge="1" parent="1" source="cnt-api" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="cnt-app" value="Usa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-a3" edge="1" parent="1" source="cnt-app" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="cnt-domain" value="Usa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-a4" edge="1" parent="1" source="cnt-domain" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;dashed=1;" target="cnt-infra" value="Implementa &#xa;portas (Outbound)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-a5" edge="1" parent="1" source="cnt-infra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="cnt-mongo" value="Lê/Grava dados &#xa;[MongoDB Driver, TLS 1.2] / InMemory">
+          <mxGeometry relative="1" x="-0.0003" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1348" y="760" />
+              <mxPoint x="310" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cnt-a6" edge="1" parent="1" source="cnt-infra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;dashed=1;" target="cnt-kafka" value="Publica eventos &#xa;[Avro, SASL_SSL]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1415" y="790" />
+              <mxPoint x="760" y="790" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cnt-a7" edge="1" parent="1" source="cnt-infra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=11;" target="cnt-receita" value="Consulta CNPJ &#xa;[HTTPS, x-api-key]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c4-component" name="C4 - Component">
+    <mxGraphModel dx="2852" dy="1682" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sWv-Ytca4GP9J3mGcuqa-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6A1B9A;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=13;fontColor=#6A1B9A;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;Infrastructure Layer&lt;/b&gt; [Biblioteca .NET]" vertex="1">
+          <mxGeometry height="260" width="555" x="110" y="1340" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;" value="&lt;b&gt;Component Diagram&lt;/b&gt;&lt;br&gt;Customer Management API" vertex="1">
+          <mxGeometry height="50" width="480" x="800" y="20" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;Cliente / Usuário&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Pessoa]&lt;br&gt;&lt;br&gt;Consome a API REST" id="cmp-person">
+          <mxCell parent="1" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;strokeColor=#4472C4;fillColor=#dce8f7;fontColor=#333333;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;arcSize=20;fontSize=12;" vertex="1">
+            <mxGeometry height="140" width="160" x="920" y="80" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="cmp-api-boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1E88E5;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=13;fontColor=#1E88E5;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;API Layer&lt;/b&gt; [ASP.NET Core 8.0]" vertex="1">
+          <mxGeometry height="520" width="580" x="40" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-controller" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1565C0;fillColor=#1976D2;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;CustomerController&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: REST Controller]&lt;br&gt;&lt;br&gt;api/v1/customer&lt;br&gt;GET, POST, PUT, DELETE&lt;br&gt;Header: appOrigin" vertex="1">
+          <mxGeometry height="140" width="220" x="80" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-middleware" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1565C0;fillColor=#1976D2;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;ExceptionMiddleware&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Middleware]&lt;br&gt;&lt;br&gt;Captura exceções e retorna&lt;br&gt;respostas padronizadas" vertex="1">
+          <mxGeometry height="130" width="220" x="350" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-health" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1565C0;fillColor=#1976D2;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;HealthChecks&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component]&lt;br&gt;&lt;br&gt;MongoDbHealthCheck&lt;br&gt;KafkaHealthCheck&lt;br&gt;/health, /health/ready" vertex="1">
+          <mxGeometry height="130" width="220" x="80" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-swagger" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1565C0;fillColor=#1976D2;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;Swagger / OpenAPI&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component]&lt;br&gt;&lt;br&gt;Documentação interativa&lt;br&gt;com versionamento v1" vertex="1">
+          <mxGeometry height="130" width="220" x="350" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-app-boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#43A047;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=13;fontColor=#43A047;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;Application Layer&lt;/b&gt; [Biblioteca .NET]" vertex="1">
+          <mxGeometry height="520" width="720" x="680" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-save-uc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2E7D32;fillColor=#43A047;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;SaveCustomerUseCase&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Use Case]&lt;br&gt;&lt;br&gt;Cria ou atualiza cliente&lt;br&gt;Valida Document, Email, Phone&lt;br&gt;Implementa ISaveCustomerUseCase" vertex="1">
+          <mxGeometry height="140" width="230" x="710" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-delete-uc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2E7D32;fillColor=#43A047;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;DeleteCustomerUseCase&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Use Case]&lt;br&gt;&lt;br&gt;Remove cliente por ID&lt;br&gt;Implementa IDeleteCustomerUseCase" vertex="1">
+          <mxGeometry height="140" width="230" x="1000" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-query" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2E7D32;fillColor=#43A047;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;CustomerQueryService&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Query Service]&lt;br&gt;&lt;br&gt;Listagem paginada, busca por ID,&lt;br&gt;contagem de clientes&lt;br&gt;Implementa ICustomerQueryService" vertex="1">
+          <mxGeometry height="140" width="250" x="710" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-mapper" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2E7D32;fillColor=#43A047;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;CustomerMapper&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Mapper]&lt;br&gt;&lt;br&gt;Converte Entity ↔ Response&lt;br&gt;/ Request ↔ Entity" vertex="1">
+          <mxGeometry height="130" width="220" x="1020" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-domain-boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#E65100;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=13;fontColor=#E65100;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;Domain Layer&lt;/b&gt; [Biblioteca .NET]" vertex="1">
+          <mxGeometry height="520" width="420" x="1460" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-customer-entity" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#BF360C;fillColor=#E65100;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;Customer&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Entity]&lt;br&gt;&lt;br&gt;Id, Name, DocumentType,&lt;br&gt;DocumentNumber, Email,&lt;br&gt;Phone, Status, CreatedDate" vertex="1">
+          <mxGeometry height="140" width="220" x="1500" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-vo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#BF360C;fillColor=#E65100;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;Value Objects&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Value Objects]&lt;br&gt;&lt;br&gt;Document (CPF/CNPJ/Passport)&lt;br&gt;Email, Phone&lt;br&gt;Validações de domínio" vertex="1">
+          <mxGeometry height="140" width="220" x="1500" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-enums" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#BF360C;fillColor=#E65100;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;Enums&lt;/b&gt;&lt;br&gt;&lt;br&gt;CustomerStatus&lt;br&gt;DocumentType&lt;br&gt;TypeAddress" vertex="1">
+          <mxGeometry height="120" width="120" x="1740" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-infra-boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6A1B9A;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;fontSize=13;fontColor=#6A1B9A;arcSize=5;spacingTop=5;spacingLeft=10;" value="&lt;b&gt;Infrastructure Layer&lt;/b&gt; [Biblioteca .NET]" vertex="1">
+          <mxGeometry height="380" width="1480" x="280" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-repo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#4A148C;fillColor=#6A1B9A;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;CustomerRepository&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Repository]&lt;br&gt;&lt;br&gt;Implementa ICustomerRepository&lt;br&gt;e ICustomerQueryRepository&lt;br&gt;Usa CustomerMongoDocument" vertex="1">
+          <mxGeometry height="140" width="240" x="320" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-inmemory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#4A148C;fillColor=#6A1B9A;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;InMemoryCustomer&lt;br&gt;Repository&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Repository]&lt;br&gt;&lt;br&gt;ConcurrentDictionary&lt;br&gt;USE_INMEMORY_DB=true" vertex="1">
+          <mxGeometry height="140" width="220" x="620" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-kafka-prod" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#4A148C;fillColor=#6A1B9A;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;dashPattern=8 4;dashed=1;" value="&lt;b&gt;KafkaProducer&lt;TAvro&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: Producer]&lt;br&gt;&lt;br&gt;Serialização Avro&lt;br&gt;Schema Registry&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="140" width="220" x="900" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-receita-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#4A148C;fillColor=#6A1B9A;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;ReceitaFederalService&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component: External Service]&lt;br&gt;&lt;br&gt;Implementa IReceitaFederalService&lt;br&gt;HTTP GET + Polly Retry 3x&lt;br&gt;Auth: x-api-key" vertex="1">
+          <mxGeometry height="140" width="240" x="1180" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-context-mongo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#4A148C;fillColor=#6A1B9A;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=11;" value="&lt;b&gt;ContextMongo&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Component]&lt;br&gt;&lt;br&gt;IContextMongo&lt;br&gt;MongoClient, Session" vertex="1">
+          <mxGeometry height="130" width="200" x="1480" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-ext-mongo" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;fontSize=12;" value="&lt;b&gt;MongoDB Atlas&lt;/b&gt;&lt;br&gt;&lt;br&gt;[Banco de Dados]&lt;br&gt;db-customer-{env}" vertex="1">
+          <mxGeometry height="140" width="200" x="370" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-ext-kafka" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;Apache Kafka&lt;/b&gt;&lt;br&gt;(Confluent)&lt;br&gt;&lt;br&gt;[Message Broker]&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="120" width="200" x="860" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-ext-receita" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;arcSize=10;fontSize=12;dashed=1;" value="&lt;b&gt;API Receita Federal&lt;/b&gt;&lt;br&gt;&lt;br&gt;[API REST Externa]&lt;br&gt;(implementação pendente)" vertex="1">
+          <mxGeometry height="120" width="200" x="1220" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e1" edge="1" parent="1" source="cmp-person" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-controller" value="HTTPS/JSON">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e2" edge="1" parent="1" source="cmp-controller" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-save-uc" value="POST, PUT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e3" edge="1" parent="1" source="cmp-controller" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-delete-uc" value="DELETE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e4" edge="1" parent="1" source="cmp-controller" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-query" value="GET">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e5" edge="1" parent="1" source="cmp-save-uc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-customer-entity" value="Cria/Atualiza">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e6" edge="1" parent="1" source="cmp-save-uc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;dashed=1;" target="cmp-repo" value="ICustomerRepository">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e7" edge="1" parent="1" source="cmp-delete-uc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;dashed=1;" target="cmp-repo" value="ICustomerRepository">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e8" edge="1" parent="1" source="cmp-query" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;dashed=1;" target="cmp-repo" value="ICustomerQueryRepository">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e9" edge="1" parent="1" source="cmp-customer-entity" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#BF360C;fontSize=10;" target="cmp-vo" value="Contém">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e10" edge="1" parent="1" source="cmp-repo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-context-mongo" value="Usa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e11" edge="1" parent="1" source="cmp-context-mongo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#333333;fontSize=10;" target="sWv-Ytca4GP9J3mGcuqa-1" value="MongoDB Driver / InMemory &#xa;(Parâmetro USE_INMEMORY_DB)">
+          <mxGeometry relative="1" x="0.1404" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1580" y="1360" />
+            </Array>
+            <mxPoint x="670" y="1360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cmp-e12" edge="1" parent="1" source="cmp-kafka-prod" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;dashed=1;" target="cmp-ext-kafka" value="Avro / SASL_SSL">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp-e13" edge="1" parent="1" source="cmp-receita-svc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=10;" target="cmp-ext-receita" value="HTTPS + x-api-key &#xa;Polly Retry 3x">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sWv-Ytca4GP9J3mGcuqa-2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#666666;fillColor=#999999;fontColor=#FFFFFF;align=center;fontSize=12;" value="&lt;b&gt;InMemory&lt;/b&gt;" vertex="1">
+          <mxGeometry height="140" width="200" x="140" y="1400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
